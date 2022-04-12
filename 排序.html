@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const array = [4, 3, 5, 2, 6, 8, 1, 0, 9, 7]
+
+    // 冒泡排序
+    // index = 1
+    // 4 3 -> 3 4
+    // index = 2
+    // 3 4 5 -> 3 4 5
+    // index = 3 
+    // 3 4 5 2 -> 2 3 4 5
+    // index = 4
+    // 2 3 4 5 6 -> 2 3 4 5 6
+    // index = 5
+    // 2 3 4 5 6 8 -> 2 3 4 5 6 8
+    // index = 6
+    // 2 3 4 5 6 8 1 -> 1 2 3 4 5 6 8
+    // index = 7 
+    // 1 2 3 4 5 6 8 0 -> 0 1 2 3 4 5 6 8
+    // index = 8
+    // 0 1 2 3 4 5 6 8 9 -> 0 1 2 3 4 5 6 8 9
+    // index = 9
+    // 0 1 2 3 4 5 6 8 9 7 -> 0 1 2 3 4 5 6 7 8 9
+    function bubleSort(arr) {
+      const len = arr.length;
+      for (let outer = 1; outer < len; outer++) {
+        for (let inner = outer; inner > 0; inner--) {
+          if (arr[inner] < arr[inner - 1])
+            [arr[inner], arr[inner - 1]] = [arr[inner - 1], arr[inner]]
+        }
+      }
+      return arr
+    }
+
+    // 快速排序
+    function quickSort(arr) {
+      const arrCapy = [...arr]
+      if (arr.length <= 1) return arrCapy;
+      let right = [], left = [], keys = arrCapy.shift();
+      for (let value of arrCapy) {
+        if (value > keys) {
+          right.push(value)
+        } else {
+          left.push(value);
+        }
+      }
+      // console.log(quickSort(left).concat(keys, quickSort(right)));
+      return quickSort(left).concat(keys, quickSort(right));
+    }
+    // quickSort(array)
+
+    // 插入排序
+    function insertSort(arr) {
+      for (let i = 1; i < arr.length; i++) {
+        let j = i - 1;
+        if (arr[i] < arr[j]) {
+          let temp = arr[i]
+          while (j >= 0 && temp < arr[j]) {
+            arr[j + 1] = arr[j]
+            j--
+          }
+          arr[j + 1] = temp
+        }
+      }
+      return arr
+    }
+
+    // 选择排序
+    // function selectSort(arr) {
+    //   for (let i = 0; i < arr.length; i++) {
+    //     let min = Math.min(...arr.slice(i));
+    //     let index = arr.indexOf(min)
+    //     [arr[i], arr[index]] = [arr[index], arr[i]]
+    //   }
+    //   return arr
+    // }
+
+    function selectSortOther(arr) {
+      var len = arr.length;
+      for (let i = 0; i < len; i++) {
+        for (let j = i; j < len; j++) {
+          if (arr[j] < arr[i]) {
+            [arr[i], arr[j]] = [arr[j], arr[i]]
+          }
+        }
+      }
+      return arr
+    }
+  </script>
+</body>
+
+</html>
