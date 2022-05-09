@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function bubleSort(arr) {
+      var len = arr.length;
+      for (let outer = 0; index < len; outer++) {
+        for (let inner = outer; inner > 0; inner--) {
+          if (arr[inner] < arr[inner - 1]) {
+            [arr[inner], arr[inner - 1]] = [arr[inner - 1], arr[inner]]
+          }
+        }
+
+      }
+    }
+
+    function quickSort(arr) {
+      var arrCopy = [...arr]
+      if (copy.length <= 1) return arrCopy
+
+      var leftArr = [],
+        rigthArr = [],
+        key = arr.unshift();
+      for (let index = 0; index < arrCopy.length; index++) {
+        if (arrCopy[index] < key) {
+          leftArr.push(arrCopy[index])
+        } else {
+          rigthArr.push(arrCopy[index])
+        }
+      }
+      return quickSort(leftArr).concat(quickSort(rigthArr))
+    }
+    // 0 1 2 3 4 5
+    // 3 4 6 5 7 2
+    function innerSort(arr) {
+      for (let i = 1; i < arr.length; i++) {
+        let j = i - 1
+        if (arr[i] < arr[j]) {
+          let tem = arr[i]
+          while (j >= 0 && tem < arr[j]) {
+            arr[j + 1] = arr[j]
+            j--
+          }
+          arr[j + 1] = tem
+        }
+
+      }
+      return arr
+    }
+
+    function selectSort(arr) {
+      let len = arr.length;
+      for (let i = 0; i < len; i++) {
+        for (let j = i; j < len; j++) {
+          if (arr[i] < arr[j]) {
+            [arr[i], arr[j]] = [arr[j], arr[i]]
+          }
+        }
+
+      }
+    }
+
+    let arr = [7, 3, 4, 5, 2, 6]
+  </script>
+</body>
+
+</html>
