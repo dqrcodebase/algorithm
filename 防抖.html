@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div onclick="testClick()">防抖点击</div>
+  <script>
+    function debounce (fn, wait, immediate) {
+      let timer;
+      return function () {
+        if (timer) clearTimeout(timer)
+        if (immediate) {
+          var callNow = !itmer;
+          timer = setTimeout(() => {
+            timer = null;
+          }, wait)
+          if (callNow) {
+            console.log('arguments', arguments);
+            fn(...arguments)
+          }
+        } else {
+          timer = setTimeout(() => {
+            console.log('arguments222', arguments);
+
+            fn(...arguments)
+          }, wait)
+        }
+      }
+    }
+
+    function test (arg) {
+      console.log(arg);
+    }
+    function testClick () {
+      let aaa = debounce(test, 1000)
+      aaa('aaa')
+    }
+
+  </script>
+</body>
+
+</html>
