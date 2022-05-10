@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let array = [
+      {
+        id: 1,
+        parent_id: 0,
+        name: "四川省"
+      },
+      {
+        id: 2,
+        parent_id: 0,
+        name: "广东省"
+      },
+      {
+        id: 3,
+        parent_id: 0,
+        name: "江西省"
+      },
+      // {
+      //   id: 5,
+      //   parent_id: 1,
+      //   name: "成都市"
+      // },
+      {
+        id: 6,
+        parent_id: 5,
+        name: "锦江区"
+      },
+      {
+        id: 7,
+        parent_id: 6,
+        name: "九眼桥"
+      },
+      {
+        id: 8,
+        parent_id: 6,
+        name: "兰桂坊"
+      },
+      {
+        id: 9,
+        parent_id: 2,
+        name: "东莞市"
+      },
+      {
+        id: 10,
+        parent_id: 9,
+        name: "长安镇"
+      },
+      {
+        id: 11,
+        parent_id: 3,
+        name: "南昌市"
+      }
+    ]
+
+    function toData(list) {
+      let map = {}
+      // 第一部分先将数组中的所有元素都复制到 map 中(注意：这里是引用复制哦，这个细节很重要)。
+      list.forEach(item => {
+        if (!map[item.id]) {
+          map[item.id] = item
+        }
+      })
+      // 执行第二次遍历前的 map:
+      // 然后这个时候遍历 parent_id 不等于 0 的元素：
+      // 判断是否每一个parent_id是否都存在
+      list.forEach(item => {
+        if (item.parent_id !== 0 && map[item.parent_id]) {
+          // 然后发现南昌市有 parent_id，我们再给 map[item.parent_id] 设置子元素，通过南昌市的 parent_id 可以推导出
+          // map["3"].children ? map["3"].children.push(item) : map[3].children = [item];
+          // 下面的代码判断了是否存在 children，如果不存在则直接给它赋值，否则将值 push 到 children 中。
+          // 执行完第二步后，我们已经把子节点添加到了它的父节点上，但是我们并没有删除掉之前的子节点。所以第三部就是对数据进行过滤，只要父节点即可。
+          map[item.parent_id].children ? map[item.parent_id].children.push(item) : map[item.parent_id].children = [item];
+        }
+      })
+      // 需要注意的是，我们一直都是对 map 进行操作的，但是结果怎么到了 list 上呢，这就是上面提到的引用复制。
+      // 以上就是本文的全部内容，希望对大家的学习有所帮助，也希望大家多多支持脚本之家。
+      return list.filter(item => {
+        if (item.parent_id === 0) {
+          return item
+        }
+      })
+    }
+
+    console.log(toData(array));
+
+  </script>
+</body>
+
+</html>
