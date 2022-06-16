@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input id="input" type="text" oninput="inputHanle()">
+  <script>
+    /**
+      * 函数节流
+      * 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
+    */
+   function throttle(fn,delay) {
+     let oldTime,nowTime,timer;
+     return function() {
+       nowTime = +new Date()
+       if(!oldTime) oldTime = nowTime;
+       if(nowTime - oldTime > delay) {
+         fn(...arguments)
+         clearTimeout(timer)
+         console.log(timer);
+         oldTime = nowTime
+       }else if(!timer) {
+         clearTimeout(timer)
+         timer = setTimeout(() => {
+           fn(...arguments)
+           oldTime = nowTime
+           timer = null
+         },delay)
+       }
+     }
+   }
+    function inputThrottle(value) {
+      console.log(new Date(),value);
+    }
+    const thrott = throttle(inputThrottle,5000)
+    function inputHanle() {
+      const value = document.getElementById('input').value
+      thrott(value);
+    }
+  </script>
+</body>
+</html>

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <div onclick="testClick()">防抖点击</div>
+  <input id="input" type="text" oninput="changeValue()">
   <script>
     function debounce (fn, wait, immediate) {
       let timer;
@@ -32,13 +32,35 @@
         }
       }
     }
+    /**
+     * 函数防抖
+     * 当持续触发事件时，一定时间段内没有再触发事件，
+     * 事件处理函数才会执行一次，如果设定时间到来之前，
+     * 又触发了事件，就重新开始延时。也就是说当一个用户一直触发这个函数，
+     * 且每次触发函数的间隔小于既定时间，那么防抖的情况下只会执行一次。
+    */
 
-    function test (arg) {
-      console.log(arg);
+    function debounce (fn, wait) {
+      let timer = null;
+      return function () {
+        // 这样写会在执行完定时器之后仍会只有一次清除定时器的操作
+        // 因为当执行完定时器后回返回一个数字给timer，此时timer仍不为空
+        if (timer) clearTimeout(timer)
+        // 这样写会造成频繁的创作定时器
+        timer = setTimeout(() => {
+          console.log(timer);
+          fn.apply(this, arguments)
+        }, wait)
+      }
     }
-    function testClick () {
-      let aaa = debounce(test, 1000)
-      aaa('aaa')
+
+    function executeHandle (value) {
+      console.log(value);
+    }
+    let debounceExecute = debounce(executeHandle, 1000)
+    function changeValue () {
+      let value = document.getElementById('input').value
+      debounceExecute(value)
     }
 
   </script>
