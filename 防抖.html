@@ -21,14 +21,13 @@
             timer = null;
           }, wait)
           if (callNow) {
-            console.log('arguments', arguments);
-            fn(...arguments)
+            //  这种写法是为了传参,且不确定参数的个数
+            fn.apply(this, arguments)
           }
         } else {
           timer = setTimeout(() => {
-            console.log('arguments222', arguments);
 
-            fn(...arguments)
+            fn.apply(this, arguments)
           }, wait)
         }
       }
